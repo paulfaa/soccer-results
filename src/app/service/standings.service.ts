@@ -29,12 +29,14 @@ export class StandingsService {
       console.log("calling standings API at ", standingsUrl);
       return this.httpClient.get<StandingsResponseModel>(standingsUrl, { headers: this.getRequiredHeaders() })
         .pipe(
-          map(result => result.response[0].league.standings[0] as StandingsModel[]),
-          map(standingsArray => standingsArray.slice(0, 10)),
-          tap(standingsArray => {
-            this.storedStandings.set(leagueId, standingsArray)
-            console.log("standings from server: ", standingsArray)
-            StorageUtils.writeToStorage("standings", this.storedStandings)
+          map(result => result?.response[0]?.league?.standings[0] as StandingsModel[]),
+          map(StandingsModels => StandingsModels?.slice(0, 10)),
+          tap(StandingsModels => {
+            if(StandingsModels != undefined){
+              this.storedStandings.set(leagueId, StandingsModels)
+              StorageUtils.writeToStorage("standings", this.storedStandings)
+            }
+            console.log("standings from server: ", StandingsModels)
           })
         )
     }
