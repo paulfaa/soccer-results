@@ -10,7 +10,7 @@ import { FixtureDetailsModel, FixtureResponseModel, StandingsModel, StandingsRes
 })
 export class StandingsService {
 
-  private apiKey: string = "a13aeafb7b7f6b9c41c212b3197aa43c";
+  private apiKey: string = "7c772ec389b8f79bb319f7286aef4c4b";
   private baseUrl: string = "https://v3.football.api-sports.io";
   private storedStandings: Map<number, StandingsModel[]>;
   private twoDaysInMs: number = 172800000;
